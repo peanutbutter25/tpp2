@@ -39,7 +39,7 @@ print("Предложение с перевернутыми словами:", re
 
 #ex5
 def has_33(nums):
-    for i in range(len(nums) - 1):  # исключая последний элемент 
+    for i in range(len(nums) - 1):  
         if nums[i] == 3 and nums[i + 1] == 3:  # проверяем число = 3 или след число 3 
             return True
     return False  

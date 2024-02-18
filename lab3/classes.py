@@ -46,7 +46,7 @@ print(result2.area2())
 result3 = Rectangle(x1,y1)
 print(result3.area3())
 
-#ex3
+#ex4
 class Point:
     def __init__(self): 
         self.x = float(input("Enter x-coordinate: "))
@@ -133,7 +133,7 @@ while True:
     else:
         print("Неверный выбор. Пожалуйста, введите 1, 2 или 3.")
 
-#ex5
+#ex6
 def prime(n):
     if n <= 1:
         return False
