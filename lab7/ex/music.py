@@ -4,7 +4,7 @@ pygame.mixer.init()
 pygame.init()
 screen = pygame.display.set_mode((960, 600))
 done = False
-songs = ['/Users/nurmatto/Desktop/Labarotory work 7/songs/The Weeknd. Is there someone else or not?.mp3', '/Users/nurmatto/Desktop/Labarotory work 7/songs/weeknd-starboy.mp3']
+songs = ['/Users/Талшын/Desktop/pp2/lab7/songs/ditto.mp3', '/Users/Талшын/Desktop/pp2/lab7/songs/dome.mp3']
 pygame.mixer.music.load(songs[0])
 pygame.mixer.music.play()
 i = 0
@@ -14,11 +14,11 @@ background_rect = background_image.get_rect()
 
 while not done:
     if i == 3:
-        background_image = pygame.image.load('/Users/nurmatto/Desktop/Labarotory work 7/images/goggins.webp')
+        background_image = pygame.image.load('/Users/Талшын/Desktop/pp2/lab7/img/newjeans.jpeg')
         background_rect = background_image.get_rect()
         screen.blit(background_image, background_rect)
     else:
-        background_image = pygame.image.load("/Users/nurmatto/Desktop/Labarotory work 7/images/disco.jpg")
+        background_image = pygame.image.load("/Users/Талшын/Desktop/pp2/lab7/img/dodome.jpeg")
         background_rect = background_image.get_rect()
         screen.blit(background_image, background_rect)
     for event in pygame.event.get():
