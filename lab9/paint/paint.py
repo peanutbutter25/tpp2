@@ -1,95 +1,109 @@
 import pygame
 
-pygame.init() # Initialize pygame
+def main():
+    pygame.init()
+    screen = pygame.display.set_mode((1600, 900))
+    clock = pygame.time.Clock()
 
-painting = []
-timer = pygame.time.Clock()
-fps = 60 # Set Frames per second
-activeColor = (0, 0, 0)
-activeShape = 0
-w = 800 # Set Window width
-h = 600 # Set Window height
+    radius = 15
+    x = 0
+    y = 0
+    mode = 'blue'
+    points = []
+    drawing_mode = 'line'  # New variable
 
-screen = pygame.display.set_mode([w, h]) # Set Screen
-pygame.display.set_caption("Paint") # Set Window Title
+    while True:
 
-def drawDisplay():
-    pygame.draw.rect(screen, (229,255,204), [0, 0, w, 86]) #Display
-    pygame.draw.line(screen, 'gray', [0, 85], [w, 85]) #Line separator
-    rect = [pygame.draw.rect(screen, (96, 96, 96), [10, 10, 70, 70]), 0]
-    pygame.draw.rect(screen, 'white', [20, 20, 50, 50])
-    circ = [pygame.draw.rect(screen, (96, 96, 96), [100, 10, 70, 70]), 1]
-    pygame.draw.circle(screen, 'white', [135, 45], 30)
-    triangle = [pygame.draw.rect(screen, (96, 96, 96), [200, 10, 70, 70]), 2]
-    pygame.draw.polygon(screen, 'white', ((235,20),(260,70),(210,70)))
-    rhomb = [pygame.draw.rect(screen, (96, 96, 96), [300, 10, 70, 70]), 3]
-    pygame.draw.polygon(screen, 'white', ((335,15),(360,45),(335,75),(310,45)))
-    right_triangle = [pygame.draw.rect(screen, (96, 96, 96), [400, 10, 70, 70]), 4]
-    pygame.draw.polygon(screen, 'white', ((410,20),(410,70),(460,70)))
-    #Colors
-    blue = [pygame.draw.rect(screen, (0, 0, 255), [w - 35, 10, 25, 25]), (0, 0, 255)]
-    red = [pygame.draw.rect(screen, (255, 0, 0), [w - 35, 35, 25, 25]), (255, 0, 0)]
-    green = [pygame.draw.rect(screen, (0, 255, 0), [w - 60, 10, 25, 25]), (0, 255, 0)]
-    yellow = [pygame.draw.rect(screen, (255, 255, 0), [w - 60, 35, 25, 25]), (255, 255, 0)]
-    black = [pygame.draw.rect(screen, (0, 0, 0), [w - 85, 10, 25, 25]), (0, 0, 0)]
-    purple = [pygame.draw.rect(screen, (255, 0, 255), [w - 85, 35, 25, 25]), (255, 0, 255)]
+        pressed = pygame.key.get_pressed()
 
-    eraser = [pygame.draw.rect(screen, (253, 166, 215), [w - 300, 20, 50, 50]), (255, 255, 255)] #Eraser
+        alt_held = pressed[pygame.K_LALT] or pressed[pygame.K_RALT]
+        ctrl_held = pressed[pygame.K_LCTRL] or pressed[pygame.K_RCTRL]
 
-    return [blue, red, green, yellow, black, purple, eraser], [rect, circ, triangle, rhomb, right_triangle]
-def drawPaint(paints):
-    for paint in paints:
-        if paint[2] == 1:
-            pygame.draw.circle(screen, paint[0], paint[1], 15)
-        elif paint[2] == 0:
-            pygame.draw.rect(screen, paint[0], [paint[1][0]-15, paint[1][1]-15, 30, 30])
-        elif paint[2] == 2:
-            pygame.draw.polygon(screen, paint[0], ((paint[1][0]-15, paint[1][1]+15), (paint[1][0], paint[1][1]-15), (paint[1][0]+15, paint[1][1]+15)))
-        elif paint[2] == 3:
-            pygame.draw.polygon(screen, paint[0], ((paint[1][0], paint[1][1]-20), (paint[1][0]+15, paint[1][1]), (paint[1][0], paint[1][1]+20),(paint[1][0]-15, paint[1][1])))
-        elif paint[2] == 4:
-            pygame.draw.polygon(screen, paint[0], ((paint[1][0]-10, paint[1][1]-20), (paint[1][0]+20, paint[1][1]+10), (paint[1][0]-10, paint[1][1]+10)))
-def draw():
-    global activeColor, activeShape, mouse
-    if mouse[1] > 100:
-        if activeShape == 0:
-            pygame.draw.rect(screen, activeColor, [mouse[0]-15, mouse[1]-15, 30, 30])
-        if activeShape == 1:
-            pygame.draw.circle(screen, activeColor, mouse, 15)
-        if activeShape == 2:
-            pygame.draw.polygon(screen, activeColor, ((mouse[0]-15, mouse[1]+15), (mouse[0], mouse[1]-15), (mouse[0]+15, mouse[1]+15)))
-        if activeShape == 3:
-            pygame.draw.polygon(screen, activeColor, ((mouse[0], mouse[1]-20), (mouse[0]+15, mouse[1]), (mouse[0], mouse[1]+20),(mouse[0]-15, mouse[1])))
-        if activeShape == 4:
-            pygame.draw.polygon(screen, activeColor, ((mouse[0]-10, mouse[1]-20), (mouse[0]+20, mouse[1]+10), (mouse[0]-10, mouse[1]+10)))
-run = True
-while run:
-    timer.tick(fps) #FPS
-    screen.fill('white') # Fill Screen
-    colors, shape = drawDisplay() # Draw Display
+        for event in pygame.event.get():
 
-    mouse = pygame.mouse.get_pos() # Get Mouse Position
-    draw()
-    click = pygame.mouse.get_pressed()[0] # Get Mouse Button Pressed
-    if click and mouse[1] > 100:
-        painting.append((activeColor, mouse, activeShape)) # Add Mouse Position to List
-    drawPaint(painting)
+            if event.type == pygame.QUIT:
+                return
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_w and ctrl_held:
+                    return
+                if event.key == pygame.K_F4 and alt_held:
+                    return
+                if event.key == pygame.K_ESCAPE:
+                    return
 
-    for event in pygame.event.get(): # Set quit event
-        if event.type == pygame.QUIT:
-            run = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                run = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                painting = []
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            for i in colors:
-                if i[0].collidepoint(event.pos):
-                    activeColor = i[1]
-            for i in shape:
-                if i[0].collidepoint(event.pos):
-                    activeShape = i[1]
-    pygame.display.flip() # Update Screen
-pygame.quit()
+                #keys
+                if event.key == pygame.K_r:
+                    mode = 'red'
+                elif event.key == pygame.K_g:
+                    mode = 'green'
+                elif event.key == pygame.K_b:
+                    mode = 'blue'
+                elif event.key == pygame.K_l:  # Switch to line mode
+                    drawing_mode = 'line'
+                elif event.key == pygame.K_c:  # Switch to circle mode
+                    drawing_mode = 'circle'
+                elif event.key == pygame.K_e:  # Switch to eraser mode
+                    drawing_mode = 'eraser'
+                elif event.key == pygame.K_t:  # Switch to rect mode
+                    drawing_mode = 'rectangle'
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # left click grows radius
+                    radius = min(200, radius + 1)
+                elif event.button == 3:  # right click shrinks radius
+                    radius = max(1, radius - 1)
+
+            if event.type == pygame.MOUSEMOTION:
+                # if mouse moved, add point to list
+                position = event.pos
+                points = points + [position]
+                points = points[-256:]
+
+        screen.fill((0, 0, 0))
+
+        # draw all points
+        i = 0
+        while i < len(points) - 1:
+            if drawing_mode == 'line':
+                drawLineBetween(screen, i, points[i], points[i + 1], radius, mode)
+            elif drawing_mode == 'circle':
+                pygame.draw.circle(screen, getColor(mode, i), points[i], radius)
+            elif drawing_mode == 'rectangle':
+                pygame.draw.rect(screen, getColor(mode, i), pygame.Rect(points[i], (radius * 2, radius * 2)))
+            elif drawing_mode == 'eraser':
+                pygame.draw.circle(screen, (0, 0, 0), points[i], radius)
+            i += 1
+
+        pygame.display.flip()
+
+        clock.tick(60)
+
+
+def drawLineBetween(screen, index, start, end, width, color_mode):
+    color = getColor(color_mode, index)
+    dx = start[0] - end[0]
+    dy = start[1] - end[1]
+    iterations = max(abs(dx), abs(dy))
+
+    for i in range(iterations):
+        progress = 1.0 * i / iterations
+        aprogress = 1 - progress
+        x = int(aprogress * start[0] + progress * end[0])
+        y = int(aprogress * start[1] + progress * end[1])
+        pygame.draw.circle(screen, color, (x, y), width)
+
+
+def getColor(color_mode, index):
+    c1 = max(0, min(255, 2 * index - 256))
+    c2 = max(0, min(255, 2 * index))
+
+    if color_mode == 'blue':
+        return (c1, c1, c2)
+    elif color_mode == 'red':
+        return (c2, c1, c1)
+    elif color_mode == 'green':
+        return (c1, c2, c1)
+    return (c1, c1, c1)  # Default color
+
+
+main()

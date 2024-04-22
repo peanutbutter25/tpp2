@@ -2,14 +2,14 @@ import pygame
 
 pygame.mixer.init()
 pygame.init()
-screen = pygame.display.set_mode((960, 600))
+screen = pygame.display.set_mode((200, 200))
 done = False
 songs = ['/Users/Талшын/Desktop/pp2/lab7/songs/ditto.mp3', '/Users/Талшын/Desktop/pp2/lab7/songs/dome.mp3']
 pygame.mixer.music.load(songs[0])
 pygame.mixer.music.play()
 i = 0
 a = True
-background_image = pygame.image.load("/Users/nurmatto/Desktop/Labarotory work 7/images/disco.jpg")
+background_image = pygame.image.load("/Users/Талшын/Desktop/pp2/lab7/img/dodome.jpeg")
 background_rect = background_image.get_rect()
 
 while not done:

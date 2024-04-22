@@ -177,7 +177,7 @@ while running:
 
     # Check for collisions
     if pygame.sprite.spritecollideany(player, vehicle_group):
-        pygame.mixer.Sound(r"C:\Users\azim7\Downloads\lab8_images_box-crash-106687.mp3").play()
+        pygame.mixer.Sound(r'/Users/Талшын/Desktop/pp2/lab7/songs/dome.mp3').play()
         time.sleep(0.5)
         screen.fill(red)
         screen.blit(game_over, (30, 250))
@@ -188,7 +188,7 @@ while running:
         pygame.quit()
     
     if pygame.sprite.spritecollideany(player, coin_group):
-        pygame.mixer.Sound(r"C:\Users\azim7\Downloads\coin-sound-43768.mp3").play()
+        pygame.mixer.Sound(r'/Users/Талшын/Desktop/pp2/lab7/songs/dome.mp3').play()
         coin_score += 1
         for coin in coin_group:
             coin.kill()

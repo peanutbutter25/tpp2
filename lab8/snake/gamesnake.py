@@ -2,16 +2,16 @@ import pygame as pg
 from random import randint, randrange
 pg.init()
 
-w, h, fps, level, step = 800, 800, 6, 0, 40
+w, h, fps, level, step = 800, 600, 6, 0, 40
 screen = pg.display.set_mode((w, h))
 pg.display.set_caption('Snake Game')
 is_running, lose = True, False
 clock = pg.time.Clock()
 score = pg.font.SysFont("Verdana", 20)
 surf = pg.Surface((390, 390), pg.SRCALPHA)
-bg = pg.image.load("images/background.jpg")
+bg = pg.image.load("imgg/background.jpg")
 bg = pg.transform.scale(bg, (w, h))
-gameover = pg.image.load("images/game_over.jpg")
+gameover = pg.image.load("imgg/game_over.jpg")
 gameover = pg.transform.scale(gameover, (390, 390))
 
 class Food:
@@ -19,7 +19,7 @@ class Food:
         # Set random coordinates for food within the game window with a step of 40
         self.x = randrange(0, w, step)
         self.y = randrange(0, h, step)
-        self.pic = pg.image.load("images/cherry.png")
+        self.pic = pg.image.load("imgg/cherry.png")
 
     def draw(self):
         screen.blit(self.pic, (self.x, self.y))
@@ -81,7 +81,7 @@ class Snake:
 class Wall:
     def __init__(self, x, y):
         self.x, self.y = x, y
-        self.pic = pg.image.load("images/wall.png")
+        self.pic = pg.image.load("imgg/wall.png")
 
     def draw(self):
         screen.blit(self.pic, (self.x, self.y))
@@ -98,7 +98,7 @@ while is_running:
         
     screen.blit(bg, (0, 0))
 
-    my_walls = open(f'wall txt files/wall{level}.txt', 'r').readlines()
+    my_walls = open(f'wallt/wall{level}.txt', 'r').readlines()
     walls = []
     for i, line in enumerate(my_walls):
         for j, each in enumerate(line):
@@ -121,7 +121,7 @@ while is_running:
         level += 1
         level %= 4 
         fps += 2
-        s.score = 0
+        s.score=0
 
     for wall in walls:
         wall.draw()
